@@ -1,0 +1,50 @@
+{
+  "id": "a85f3416",
+  "name": "VisualEyes",
+  "version": "0.0.1",
+  "host": {
+    "app": "XD",
+    "minVersion": "13.0"
+  },
+  "description": "Attention heatmaps in seconds",
+  "summary": "Validate your design decisions inside your favourite design tool. We combine leading neuroscience research with AI to accurately predict how people will react to your digital designs.",
+  "languages": ["en"],
+  "author": "dmraptis <dimitrisraptis96@gmail.com>",
+  "helpUrl": "https://visualeyes.loceye.io",
+
+  "icons": [
+    {
+      "width": 24,
+      "height": 24,
+      "path": "images/icon@1x.png"
+    },
+    {
+      "width": 48,
+      "height": 48,
+      "path": "images/icon@2x.png"
+    },
+    {
+      "width": 96,
+      "height": 96,
+      "path": "images/icon@3x.png"
+    },
+    {
+      "width": 144,
+      "height": 144,
+      "path": "images/icon@4x.png"
+    },
+    {
+      "width": 192,
+      "height": 192,
+      "path": "images/icon@5x.png"
+    }
+  ],
+  "uiEntryPoints": [
+    {
+      "type": "menu",
+      "label": "Generate Heatmap",
+      "commandId": "generateHeatmap",
+      "shortcut": { "mac": "Cmd+Alt+L", "win": "Ctrl+Alt+L" }
+    }
+  ]
+}
