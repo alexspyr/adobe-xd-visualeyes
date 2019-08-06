@@ -9,3 +9,7 @@
 </div>
 <br/>
 <img src="./assets/demo.gif"/>
+
+## Installation
+
+Download the plugin .xdx file [here]("./plugin/visualeyes.xdx) and double-click to open the default installation wizard.

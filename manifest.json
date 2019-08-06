@@ -6,11 +6,13 @@
     "app": "XD",
     "minVersion": "13.0"
   },
-  "description": "Attention heatmaps in seconds",
-  "summary": "Validate your design decisions inside your favourite design tool. We combine leading neuroscience research with AI to accurately predict how people will react to your digital designs.",
+  "summary": "Attention heatmaps in seconds",
+  "description": "Validate your design decisions inside your favourite design tool. We combine leading neuroscience research with AI to accurately predict how people will react to your digital designs.",
   "languages": ["en"],
-  "author": "dmraptis <dimitrisraptis96@gmail.com>",
+  "author": "Dimitris Raptis",
+  "website": "https://visualeyes.loceye.io",
   "helpUrl": "https://visualeyes.loceye.io",
+  "keywords": ["attention", "heatmap", "predictive", "predict"],
 
   "icons": [
     {
