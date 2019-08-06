@@ -2,13 +2,35 @@ const application = require("application");
 const { ImageFill, Rectangle } = require("scenegraph");
 const fs = require("uxp").storage.localFileSystem;
 const formats = require("uxp").storage.formats;
-const base64 = require("./base64-arraybuffer");
+const base64 = require("./js/base64-arraybuffer");
+const { setApiKey } = require("./js/set-api-key.js");
+
+async function getApiKey() {
+  const folder = await fs.getDataFolder();
+  const entries = await folder.getEntries();
+
+  const settingsFile = entries.find((entry) => entry.name === "settings.txt");
+
+  let apiKey = "";
+  if (settingsFile) {
+    apiKey = await settingsFile.read({ format: formats.utf8 });
+    return apiKey;
+  } else {
+    try {
+      createToastMessage(`🤔 Please, set your API key first!`);
+      return null;
+    } catch (e) {}
+  }
+}
 
 async function generateHeatmap(selection) {
   if (!selection.hasArtboards)
     return createToastMessage(`👎 Please select an Artboard`);
 
   const artboard = selection.items[0];
+
+  const apiKey = await getApiKey();
+  if (!apiKey) return;
 
   createToastMessage(`🧠 Your heatmap is generating...`);
 
@@ -36,7 +58,7 @@ async function generateHeatmap(selection) {
       });
       const imgBase64 = "data:image/jpg;base64," + base64.encode(binary);
 
-      const url = await uploadImage(imgBase64);
+      const url = await uploadImage(imgBase64, apiKey);
       const fill = await getImageFill(rectangle, url);
 
       return fill;
@@ -54,17 +76,17 @@ function createHeatmapLayer(rectangle, artboard) {
   rectangle.moveInParentCoordinates(0, 0);
 }
 
-function uploadImage(image) {
+function uploadImage(image, apiKey) {
   const formData = new FormData();
-  formData.append("isTransparent", "false");
+  formData.append("isTransparent", "true");
   formData.append("image", image);
 
-  return new Promise(function(resolve) {
+  return new Promise(function(resolve, reject) {
     fetch("https://api.visualeyes.loceye.io/predict/", {
       method: "POST",
       body: formData,
       headers: {
-        Authorization: `Token loceye-user-unlimited`,
+        Authorization: `Token ${apiKey}`,
         // "Content-Type": "application/x-www-form-urlencoded",
         "cache-control": "no-cache",
       },
@@ -74,6 +96,8 @@ function uploadImage(image) {
 
         if (status === 200) {
           console.log("Successful");
+        } else if (status === 401) {
+          createToastMessage(`🙄 Your API key is not valid`);
         } else if (status === 403) {
           createToastMessage(`🚨 Your heatmaps limit has been exceeded`);
         } else {
@@ -92,7 +116,7 @@ function uploadImage(image) {
         // createToastMessage(`🎉 Bazinga!`);
       })
       .catch((err) => {
-        console.log(err);
+        reject(err);
       });
   });
 }
@@ -154,5 +178,6 @@ function createToastMessage(message) {
 module.exports = {
   commands: {
     generateHeatmap,
+    setApiKey,
   },
 };

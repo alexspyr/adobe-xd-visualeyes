@@ -42,6 +42,11 @@
   "uiEntryPoints": [
     {
       "type": "menu",
+      "label": "Set API key",
+      "commandId": "setApiKey"
+    },
+    {
+      "type": "menu",
       "label": "Generate Heatmap",
       "commandId": "generateHeatmap",
       "shortcut": { "mac": "Cmd+Alt+L", "win": "Ctrl+Alt+L" }
