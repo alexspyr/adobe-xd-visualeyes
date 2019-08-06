@@ -12,4 +12,5 @@
 
 ## Installation
 
-Download the plugin .xdx file [here](plugin/visualeyes.xdx) and double-click to open the default installation wizard.
+1. Download the plugin .xdx file [here](https://github.com/loceye/adobe-xd-visualeyes/raw/master/plugin/visualeyes.xdx)
+2. Double-click to open the default installation wizard and follow the instructions.
